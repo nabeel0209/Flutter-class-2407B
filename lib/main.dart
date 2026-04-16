@@ -150,8 +150,8 @@ class ChangingTextState extends State<ChangingText> {
                     Image.asset('youtube.png', width: 150, height: 150),
                     Image.network(
                       'https://as2.ftcdn.net/v2/jpg/17/65/88/21/1000_F_1765882144_LIGjRITDUSaBTelN8vQ2WCsaL1qP3eCv.webp',
-                      width: 300,
-                      height: 300,
+                      width: 400,
+                      height: 400,
                     ),
                   ],
                 ),
