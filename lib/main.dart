@@ -15,6 +15,17 @@ class _MyAppState extends State<MyApp> {
 
   List<Map<String, dynamic>> users = [];
 
+  void addUser() {
+    if (userNameController.text.isEmpty || ageController.text.isEmpty) return print('Please enter a user');
+
+    setState(() {
+      users.add({'name': userNameController.text, 'age': ageController.text});
+    });
+
+    userNameController.clear();
+    ageController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,12 +81,27 @@ class _MyAppState extends State<MyApp> {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: ElevatedButton(
-                    onPressed: () => print('Hello World'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                    onPressed: addUser,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                    ),
                     child: Text('Add', style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ],
+            ),
+          ),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(users[index]['name']),
+                  subtitle: Text(users[index]['age']),
+                );
+              },
             ),
           ),
         ],
