@@ -16,7 +16,8 @@ class _MyAppState extends State<MyApp> {
   List<Map<String, dynamic>> users = [];
 
   void addUser() {
-    if (userNameController.text.isEmpty || ageController.text.isEmpty) return print('Please enter a user');
+    if (userNameController.text.isEmpty || ageController.text.isEmpty)
+      return print('Please enter a user');
 
     setState(() {
       users.add({'name': userNameController.text, 'age': ageController.text});
@@ -24,6 +25,13 @@ class _MyAppState extends State<MyApp> {
 
     userNameController.clear();
     ageController.clear();
+  }
+
+  void deleteUser(int index) {
+    setState(() {
+      users.removeAt(index);
+      print('User deleted');
+    });
   }
 
   @override
@@ -98,8 +106,24 @@ class _MyAppState extends State<MyApp> {
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: Icon(Icons.person),
-                  title: Text(users[index]['name']),
+                  title: Text('${index +1 } - ${users[index]['name']}'),
                   subtitle: Text(users[index]['age']),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => print('Edit button pressed'),
+                        child: Row(children: [Text('Edit'), Icon(Icons.edit)]),
+                      ),
+                      SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () => deleteUser(index),
+                        child: Row(
+                          children: [Text('Delete'), Icon(Icons.delete)],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
